@@ -12,8 +12,8 @@ namespace StudSigns
     {
         int iFormX, iFormY, iMouseX, iMouseY;
         StudentContext context;
-
         DisciplineContext dContext;
+
         private void Form_MouseDown(object sender, MouseEventArgs e)
         {
             iFormX = this.Location.X;
@@ -21,7 +21,6 @@ namespace StudSigns
             iMouseX = MousePosition.X;
             iMouseY = MousePosition.Y;
         }
-
         private void Form_MouseMove(object sender, MouseEventArgs e)
         {
             int iMouseX2 = MousePosition.X;
@@ -29,6 +28,7 @@ namespace StudSigns
             if (e.Button == MouseButtons.Left)
                 this.Location = new Point(iFormX + (iMouseX2 - iMouseX), iFormY + (iMouseY2 - iMouseY));
         }
+
 
         public AdminForm()
         {
@@ -83,12 +83,12 @@ namespace StudSigns
             var admins = adminDb.Admins.ToList();
             AdminsDGV.DataSource = admins;
         }
+        
 
         private void RefreshDB_Click(object sender, EventArgs e)
         {
                 LoadData();
         }
-
         private void SaveButton_Click(object sender, EventArgs e)
         {
             DialogResult dialog = MessageBox.Show(
@@ -103,11 +103,100 @@ namespace StudSigns
             }
         }
 
-        private void MinimizeButton_Click(object sender, EventArgs e)
+        private void DeleteStudent()
         {
-            this.WindowState = FormWindowState.Minimized;
+            string studentID;
+            try
+            {
+                studentID = dataGridView1.CurrentRow.Cells["StudentNumber"].Value.ToString();
+            } catch (Exception)
+            {
+                MessageBox.Show(
+                "Возможно вы не выбрали строку",
+                "Ошибка!",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+                );
+                return;
+            }
+            DialogResult dialog = MessageBox.Show(
+                $"Вы действительно хотите удалить студента с номером зачетной книги \"{studentID}\"?",
+                "Вы уверены?",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+                );
+            if (dialog == DialogResult.Yes)
+            {
+                var stud = context.Students.Find(studentID);
+                if (stud != null)
+                {
+                    context.Students.Attach(stud);
+                    context.Students.Remove(stud);
+                    context.SaveChanges();
+                    MessageBox.Show(
+                $"Удаление успешно!",
+                "Успех!",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+                );
+                LoadData();
+                }
+                else
+                {
+                    MessageBox.Show(
+                $"Cтудента с номером зачетной книги \"{studentID}\" не существует!",
+                "Ошибка!",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+                );
+                }
+            }
+        }
+        private void DeleteDiscipline()
+        {
+            var Context = new DisciplineContext();
+            int DisciplineID;
+            try
+            {
+                DisciplineID = (int) DisciplineDGV.CurrentRow.Cells["ID"].Value;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(
+                "Возможно вы не выбрали строку\n" +
+                e.Message,
+                "Ошибка!",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+                );
+                return;
+            }
+            DialogResult dialog = MessageBox.Show(
+                $"Вы действительно хотите удалить дисциплину?",
+                "Вы уверены?",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+                );
+            if (dialog == DialogResult.Yes)
+            {
+                var stud = Context.Disciplines.Find(DisciplineID);
+                if (stud != null)
+                {
+                    Context.Disciplines.Attach(stud);
+                    Context.Disciplines.Remove(stud);
+                    Context.SaveChanges();
+                    MessageBox.Show(
+                $"Удаление успешно!",
+                "Успех!",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+                );
+                    LoadData();
+                }
+            }
         }
 
+        
         private void AddSessionResultBtn_Click(object sender, EventArgs e)
         {
             int disciplineID;
@@ -172,115 +261,6 @@ namespace StudSigns
                     );
             }
         }
-
-        private void AddResultStudentID_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            char number = e.KeyChar;
-            if (!Char.IsDigit(number) && number != 8) e.Handled = true;
-        }
-
-        private void DeleteStudent()
-        {
-            string studentID;
-            try
-            {
-                studentID = dataGridView1.CurrentRow.Cells["StudentNumber"].Value.ToString();
-            } catch (Exception)
-            {
-                MessageBox.Show(
-                "Возможно вы не выбрали строку",
-                "Ошибка!",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error
-                );
-                return;
-            }
-            DialogResult dialog = MessageBox.Show(
-                $"Вы действительно хотите удалить студента с номером зачетной книги \"{studentID}\"?",
-                "Вы уверены?",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning
-                );
-            if (dialog == DialogResult.Yes)
-            {
-                var stud = context.Students.Find(studentID);
-                if (stud != null)
-                {
-                    context.Students.Attach(stud);
-                    context.Students.Remove(stud);
-                    context.SaveChanges();
-                    MessageBox.Show(
-                $"Удаление успешно!",
-                "Успех!",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-                );
-                LoadData();
-                }
-                else
-                {
-                    MessageBox.Show(
-                $"Cтудента с номером зачетной книги \"{studentID}\" не существует!",
-                "Ошибка!",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error
-                );
-                }
-            }
-        }
-
-        private void DeleteDiscipline()
-        {
-            var Context = new DisciplineContext();
-            int DisciplineID;
-            try
-            {
-                DisciplineID = (int) DisciplineDGV.CurrentRow.Cells["ID"].Value;
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(
-                "Возможно вы не выбрали строку\n" +
-                e.Message,
-                "Ошибка!",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error
-                );
-                return;
-            }
-            DialogResult dialog = MessageBox.Show(
-                $"Вы действительно хотите удалить дисциплину?",
-                "Вы уверены?",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning
-                );
-            if (dialog == DialogResult.Yes)
-            {
-                var stud = Context.Disciplines.Find(DisciplineID);
-                if (stud != null)
-                {
-                    Context.Disciplines.Attach(stud);
-                    Context.Disciplines.Remove(stud);
-                    Context.SaveChanges();
-                    MessageBox.Show(
-                $"Удаление успешно!",
-                "Успех!",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-                );
-                    LoadData();
-                }
-            }
-        }
-
-            private void dataGridView1_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Delete)
-            {
-                DeleteStudent();
-            } 
-        }
-
         private void AddDisciplineBtn_Click(object sender, EventArgs e)
         {
             if (DisciplineTextBox.Text.Trim() == "" ||
@@ -319,30 +299,6 @@ namespace StudSigns
             }
 
         }
-
-        private void SaveDisciplines_Click(object sender, EventArgs e)
-        {
-            DialogResult dialog = MessageBox.Show(
-                $"Вы действительно хотите сохранить изменения?",
-                "Вы уверены?",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning
-                );
-            if (dialog == DialogResult.Yes)
-            {
-                dContext.SaveChanges();
-            }
-            LoadData();
-        }
-
-        private void DisciplineDGV_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Delete)
-            {
-                DeleteDiscipline();
-            }
-        }
-
         private void AddAdminBtn_Click(object sender, EventArgs e)
         {
             Regex passwordCheck = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9])\S{6,16}$");
@@ -410,13 +366,6 @@ namespace StudSigns
                 }
             }
         }
-
-        private void StudentID_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            char number = e.KeyChar;
-            if (!Char.IsDigit(number) && number != 8) e.Handled = true;
-        }
-
         private void StudentAdd_Click(object sender, EventArgs e)
         {
             DialogResult dialog = MessageBox.Show(
@@ -490,9 +439,52 @@ namespace StudSigns
                 }
             } 
         }
-        
-        
+        private void SaveDisciplines_Click(object sender, EventArgs e)
+        {
+            DialogResult dialog = MessageBox.Show(
+                $"Вы действительно хотите сохранить изменения?",
+                "Вы уверены?",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+                );
+            if (dialog == DialogResult.Yes)
+            {
+                dContext.SaveChanges();
+            }
+            LoadData();
+        }
 
+
+        private void AddResultStudentID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char number = e.KeyChar;
+            if (!Char.IsDigit(number) && number != 8) e.Handled = true;
+        }
+        private void StudentID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char number = e.KeyChar;
+            if (!Char.IsDigit(number) && number != 8) e.Handled = true;
+        }
+        private void dataGridView1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                DeleteStudent();
+            } 
+        }
+        private void DisciplineDGV_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                DeleteDiscipline();
+            }
+        }
+
+
+        private void MinimizeButton_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
         private void ExitButton_Click(object sender, EventArgs e)
         {
             this.Close();

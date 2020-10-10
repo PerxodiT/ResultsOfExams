@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.EntityFrameworkCore;
 
 namespace StudSigns
 {
@@ -16,13 +11,12 @@ namespace StudSigns
         public MainForm()
         {
             InitializeComponent();
-            AdminPass.ContextMenu = new ContextMenu();
+            AdminPass.ContextMenu = new ContextMenu(); //Password copy protection
             AdminPass.ShortcutsEnabled = false;
         }
         
-        int iFormX, iFormY, iMouseX, iMouseY;
-
-        private void Form_MouseDown(object sender, MouseEventArgs e)
+        int iFormX, iFormY, iMouseX, iMouseY; //Global variables to move form
+        private void Form_MouseDown(object sender, MouseEventArgs e) // Events for move form
         {
             iFormX = this.Location.X;
             iFormY = this.Location.Y;
@@ -37,28 +31,28 @@ namespace StudSigns
             if (e.Button == MouseButtons.Left)
                 this.Location = new Point(iFormX + (iMouseX2 - iMouseX), iFormY + (iMouseY2 - iMouseY));
         }
+        // End of events for moving form
 
-        private void StudID_Enter(object sender, EventArgs e)
+
+        private void StudID_Enter(object sender, EventArgs e) //Select button for click on them by pressing enter
         {
             this.AcceptButton = this.StudentInput;
-        }
-
+        } 
         private void AdminLogin_Enter(object sender, EventArgs e)
         {
             this.AcceptButton = this.AdminInput;
         }
 
-        private void MinimizeButton_Click(object sender, EventArgs e)
+        private void MinimizeButton_Click(object sender, EventArgs e) // Form control buttons 
         {
             this.WindowState = FormWindowState.Minimized;
         }
-
         private void ExitButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void AdminInput_Click(object sender, EventArgs e)
+        private void AdminInput_Click(object sender, EventArgs e) // Button to autentificate administrator
         {
             using (AdministratorContext AdminDb = new AdministratorContext())
             {
@@ -81,7 +75,7 @@ namespace StudSigns
             }
         }
 
-        private void StudentInput_Click(object sender, EventArgs e)
+        private void StudentInput_Click(object sender, EventArgs e) // Button for authentificate student
         {
             using (StudentContext StudentsDb = new StudentContext())
             {

@@ -116,6 +116,7 @@
             this.ResultDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ResultDGV.Size = new System.Drawing.Size(334, 338);
             this.ResultDGV.TabIndex = 10;
+            this.ResultDGV.SelectionChanged += new System.EventHandler(this.DisciplineDataShowBtn_Click);
             // 
             // DisciplineDGV
             // 

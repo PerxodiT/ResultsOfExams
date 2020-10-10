@@ -16,7 +16,7 @@ namespace StudSigns
         int iFormX, iFormY, iMouseX, iMouseY;
         Nullable<int> DisciplineID;
 
-        private void Form_MouseDown(object sender, MouseEventArgs e)
+        private void Form_MouseDown(object sender, MouseEventArgs e) // Events for move form
         {
             iFormX = this.Location.X;
             iFormY = this.Location.Y;
@@ -32,25 +32,41 @@ namespace StudSigns
                 this.Location = new Point(iFormX + (iMouseX2 - iMouseX), iFormY + (iMouseY2 - iMouseY));
         }
 
-        private Student Stud;
+        private void MinimizeButton_Click(object sender, EventArgs e) // Form control buttons
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void ExitButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private Student Stud; //Authentificated student
         public StudentForm(string studnumber)
         {
             InitializeComponent();
             StudentContext context = new StudentContext();
             Stud = context.Students.Find(studnumber);
-            LoadData();
             DisciplineID = null;
+            LoadData();
 
-            StudentID.Text = Stud.StudentNumber;
+            StudentID.Text = Stud.StudentNumber; // Set info about student
             FIO.Text = Stud.Name;
             Group.Text = Stud.Group;
             Specialty.Text = Stud.Specialty;
             Faculty.Text = Stud.Faculty;
             Gender.Text = Stud.Gender;
             DateOfBirth.Text = Stud.DateOfBirth.ToString("d");
+
+            DisciplineDGV.Columns["Name"].HeaderText = "Название дисциплины"; // Localisation of tables
+            DisciplineDGV.Columns["Teacher"].HeaderText = "Преподаватель";
+
+            ResultDGV.Columns["ExamDate"].HeaderText = "Дата экзамена";
+            ResultDGV.Columns["ExamMark"].HeaderText = "Отметка за экзамен";
         }
 
-        private void DisciplineDataShowBtn_Click(object sender, EventArgs e)
+        private void DisciplineDataShowBtn_Click(object sender, EventArgs e) // Show info about discipline
         {
             DisciplineID = (Nullable<int>)ResultDGV.CurrentRow.Cells["DisciplineID"].Value;
             if (DisciplineID == null)
@@ -65,7 +81,7 @@ namespace StudSigns
             DisciplineDGV.Columns["ID"].Visible = false;
         }
 
-        private void LoadData()
+        private void LoadData() // Show session results
         {
             var db = new SessionContext();
             var results = db.Sessions.Where(s => s.Student.StudentNumber == Stud.StudentNumber).ToList();
@@ -77,22 +93,5 @@ namespace StudSigns
             ResultDGV.Columns["DisciplineID"].Visible = false;
             ResultDGV.Columns["Discipline"].Visible = false;
         }
-
-        private void MinimizeButton_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
-        }
-
-        private void ExitButton_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-    }
-
-    class SRes
-    {
-        public DateTime ExamDate { get; set; }
-        public ushort ExamMark { get; set; }
     }
 }
