@@ -59,8 +59,6 @@ namespace StudSigns
             Gender.Text = Stud.Gender;
             DateOfBirth.Text = Stud.DateOfBirth.ToString("d");
 
-            DisciplineDGV.Columns["Name"].HeaderText = "Название дисциплины"; // Localisation of tables
-            DisciplineDGV.Columns["Teacher"].HeaderText = "Преподаватель";
 
             ResultDGV.Columns["ExamDate"].HeaderText = "Дата экзамена";
             ResultDGV.Columns["ExamMark"].HeaderText = "Отметка за экзамен";
@@ -68,17 +66,31 @@ namespace StudSigns
 
         private void DisciplineDataShowBtn_Click(object sender, EventArgs e) // Show info about discipline
         {
-            DisciplineID = (Nullable<int>)ResultDGV.CurrentRow.Cells["DisciplineID"].Value;
-            if (DisciplineID == null)
+            try
             {
-                DisciplineDGV.Rows.Clear();
-                return;
-            }
+                DisciplineID = (Nullable<int>)ResultDGV.CurrentRow.Cells["DisciplineID"].Value;
+                if (DisciplineID == null)
+                {
+                    DisciplineDGV.Rows.Clear();
+                    return;
+                }
 
-            var db = new DisciplineContext();
-            var DisciplineDataSource = db.Disciplines.Where(d => d.ID == DisciplineID).ToList();
-            DisciplineDGV.DataSource = DisciplineDataSource;
-            DisciplineDGV.Columns["ID"].Visible = false;
+                var db = new DisciplineContext();
+                var DisciplineDataSource = db.Disciplines.Where(d => d.ID == DisciplineID).ToList();
+                DisciplineDGV.DataSource = DisciplineDataSource;
+                DisciplineDGV.Columns["ID"].Visible = false;
+
+                DisciplineDGV.Columns["Name"].HeaderText = "Название дисциплины"; // Localisation of tables
+                DisciplineDGV.Columns["Teacher"].HeaderText = "Преподаватель";
+            } catch (Exception ex)
+            {
+                MessageBox.Show(
+                        ex.Message,
+                        "Ошибка",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+            }
         }
 
         private void LoadData() // Show session results

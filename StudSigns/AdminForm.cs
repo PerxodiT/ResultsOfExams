@@ -60,7 +60,7 @@ namespace StudSigns
                 InitialDelay = 100,
                 ReshowDelay = 200
             };
-            tooltip.SetToolTip(this.HelpBtn, "Для удаления записи нажмите кнопку \"Delete\"");
+            tooltip.SetToolTip(this.HelpBtn, "Для удаления записи, выделите ее в таблице и нажмите кнопку \"Delete\"");
         }
 
 

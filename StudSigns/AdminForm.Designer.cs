@@ -79,7 +79,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.ModifyStudentHelp = new System.Windows.Forms.HelpProvider();
             this.panel1.SuspendLayout();
             this.AddResultTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DisciplineDGV)).BeginInit();
@@ -442,12 +441,10 @@
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
             this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ModifyStudentHelp.SetHelpString(this.dataGridView1, "Для удаления нажмите кнопку \"Delete\"");
             this.dataGridView1.Location = new System.Drawing.Point(8, 7);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ModifyStudentHelp.SetShowHelp(this.dataGridView1, true);
             this.dataGridView1.Size = new System.Drawing.Size(817, 323);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyUp);
@@ -647,7 +644,7 @@
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AdminForm";
-            this.Text = "Form2";
+            this.Text = "Администратор";
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form_MouseMove);
             this.panel1.ResumeLayout(false);
@@ -719,7 +716,6 @@
         private System.Windows.Forms.TextBox AddAdmPasstb;
         private System.Windows.Forms.TextBox AddAdmtb;
         private System.Windows.Forms.Button SaveAdminChanges;
-        private System.Windows.Forms.HelpProvider ModifyStudentHelp;
         private System.Windows.Forms.Button HelpBtn;
     }
 }
