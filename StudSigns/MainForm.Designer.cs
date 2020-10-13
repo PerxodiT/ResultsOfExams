@@ -120,6 +120,7 @@
             this.StudID.TabIndex = 0;
             this.StudID.WordWrap = false;
             this.StudID.Enter += new System.EventHandler(this.StudID_Enter);
+            this.StudID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.StudentID_KeyPress);
             // 
             // tabPage2
             // 
