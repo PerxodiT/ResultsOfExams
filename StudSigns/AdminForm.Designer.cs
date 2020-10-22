@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.ExitButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -437,9 +437,9 @@
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(8, 7);
             this.dataGridView1.MultiSelect = false;
@@ -554,6 +554,7 @@
             this.Faculty.Name = "Faculty";
             this.Faculty.Size = new System.Drawing.Size(121, 20);
             this.Faculty.TabIndex = 8;
+            this.Faculty.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Specialty_KeyPress);
             // 
             // Specialty
             // 
@@ -561,6 +562,7 @@
             this.Specialty.Name = "Specialty";
             this.Specialty.Size = new System.Drawing.Size(121, 20);
             this.Specialty.TabIndex = 6;
+            this.Specialty.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Specialty_KeyPress);
             // 
             // GroupTextbox
             // 
@@ -568,6 +570,7 @@
             this.GroupTextbox.Name = "GroupTextbox";
             this.GroupTextbox.Size = new System.Drawing.Size(121, 20);
             this.GroupTextbox.TabIndex = 4;
+            this.GroupTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.GroupTextbox_KeyPress);
             // 
             // FIO
             // 
@@ -575,6 +578,7 @@
             this.FIO.Name = "FIO";
             this.FIO.Size = new System.Drawing.Size(121, 20);
             this.FIO.TabIndex = 2;
+            this.FIO.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FIO_KeyPress);
             // 
             // StudentID
             // 

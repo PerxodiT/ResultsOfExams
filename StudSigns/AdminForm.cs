@@ -129,6 +129,17 @@ namespace StudSigns
                 if (!Char.IsLetter(e.KeyChar) && (e.KeyChar != 8))
                     e.Handled = true;
         }
+        private void FIO_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsLetter(e.KeyChar) && (e.KeyChar != 8) && !Char.IsWhiteSpace(e.KeyChar))
+                e.Handled = true;
+        }
+        private void GroupTextbox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && (e.KeyChar != 8) && !Char.IsLetter(e.KeyChar))
+                e.Handled = true;
+        }
+
 
 
         private void DeleteStudent()
@@ -493,6 +504,12 @@ namespace StudSigns
             char number = e.KeyChar;
             if (!Char.IsDigit(number) && number != 8) e.Handled = true;
         }
+        private void Specialty_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsLetter(e.KeyChar) && (e.KeyChar != '-') && (e.KeyChar != 8) && !Char.IsWhiteSpace(e.KeyChar))
+                e.Handled = true;
+        }
+
         private void dataGridView1_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
@@ -500,6 +517,7 @@ namespace StudSigns
                 DeleteStudent();
             } 
         }
+
 
         private void DisciplineDGV_KeyUp(object sender, KeyEventArgs e)
         {
