@@ -113,6 +113,21 @@ namespace StudSigns
             if (dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Name"].IsInEditMode == true)
                 if (!Char.IsLetter(e.KeyChar) && (e.KeyChar != 8) && !Char.IsWhiteSpace(e.KeyChar))
                     e.Handled = true;
+            if (dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Specialty"].IsInEditMode == true)
+                if (!Char.IsLetter(e.KeyChar) && (e.KeyChar != '-') && (e.KeyChar != 8) && !Char.IsWhiteSpace(e.KeyChar))
+                    e.Handled = true;
+            if (dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Faculty"].IsInEditMode == true)
+                if (!Char.IsLetter(e.KeyChar) && (e.KeyChar != '-') && (e.KeyChar != 8) && !Char.IsWhiteSpace(e.KeyChar))
+                    e.Handled = true;
+            if (dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["DateOfBirth"].IsInEditMode == true)
+                if (!Char.IsDigit(e.KeyChar) && (e.KeyChar != 8) && (e.KeyChar != '.'))
+                    e.Handled = true;
+            if (dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Group"].IsInEditMode == true)
+                if (!Char.IsDigit(e.KeyChar) && (e.KeyChar != 8) && !Char.IsLetter(e.KeyChar))
+                    e.Handled = true;
+            if (dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Gender"].IsInEditMode == true)
+                if (!Char.IsLetter(e.KeyChar) && (e.KeyChar != 8))
+                    e.Handled = true;
         }
 
 
