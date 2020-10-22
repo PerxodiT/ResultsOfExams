@@ -47,6 +47,9 @@ namespace StudSigns
             dataGridView1.Columns["Specialty"].HeaderText = "Специальность";
             dataGridView1.Columns["Faculty"].HeaderText = "Факультет";
 
+
+            //dataGridView1.Columns["DateOfBirth"].DefaultCellStyle.Format = "dd.MM.yyyy";
+
             AdminsDGV.Columns["Login"].HeaderText = "Логин";
             AdminsDGV.Columns["Pass"].Visible = false;
 

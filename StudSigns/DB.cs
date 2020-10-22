@@ -44,6 +44,7 @@ namespace StudSigns
         public string Gender { get; set; }
         public List<SessionResult> sessionResults { get; set; }
         [Required]
+        [Column(TypeName="date")]
         public DateTime DateOfBirth { get; set; }
         [Required]
         public string Group { get; set; }
