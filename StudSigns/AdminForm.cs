@@ -83,7 +83,7 @@ namespace StudSigns
             var admins = adminDb.Admins.ToList();
             AdminsDGV.DataSource = admins;
         }
-        
+
 
         private void RefreshDB_Click(object sender, EventArgs e)
         {
@@ -102,6 +102,19 @@ namespace StudSigns
             context.SaveChanges();
             }
         }
+        private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            TextBox tb = (TextBox)e.Control;
+            tb.KeyPress += new KeyPressEventHandler(tb_KeyPress);
+        }
+        void tb_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //проверка ввода фио
+            if (dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Name"].IsInEditMode == true)
+                if (!Char.IsLetter(e.KeyChar) && (e.KeyChar != 8) && !Char.IsWhiteSpace(e.KeyChar))
+                    e.Handled = true;
+        }
+
 
         private void DeleteStudent()
         {
@@ -472,6 +485,7 @@ namespace StudSigns
                 DeleteStudent();
             } 
         }
+
         private void DisciplineDGV_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
